@@ -26,9 +26,10 @@ SECRET_KEY = 'django-insecure-zm%5q3g*mm=z*n7cs)!)kgnx8n%#i74+dc-(p7(*0y32lp3epa
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    projetclassement.onrender.com,
+    'localhost',
+    '127.0.0.1',
+    'projetclassement.onrender.com',  # ton domaine Render
 ]
-
 
 # Application definition
 
@@ -123,5 +124,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
