@@ -1,0 +1,165 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Gestion des Groupes{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #000;
+    }
+
+    h1.dashboard-title {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 28px;
+    }
+
+    .groups-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .group-card {
+        background: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .group-card h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
+
+    .capacity-info {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    summary {
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+    }
+
+    th, td {
+        padding: 8px;
+        border: 1px solid #ccc;
+        font-size: 13px;
+        text-align: left;
+    }
+
+    th {
+        background: #007bff;
+        color: white;
+    }
+
+    tr:hover td {
+        background: #e6f0ff;
+    }
+
+    .btn-delete, .btn-export, .btn-pdf {
+        text-decoration: none;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 5px;
+        color: #fff;
+        display: inline-block;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .btn-delete { background: #d9534f; }
+    .btn-delete:hover { background: #b52b27; }
+
+    .btn-export { background: #28a745; }
+    .btn-export:hover { background: #1f7f33; }
+
+    .btn-pdf { background: #c60021; }
+    .btn-pdf:hover { background: #a3001b; }
+
+    @media (max-width: 600px) {
+        .group-card {
+            width: 100%;
+        }
+        table, th, td {
+            font-size: 11px;
+        }
+        .btn-delete, .btn-export, .btn-pdf {
+            font-size: 10px;
+            padding: 5px 8px;
+        }
+    }
+</style>
+
+<h1 class="dashboard-title">📊 Tableau des Groupes</h1>
+
+<div class="groups-container">
+    {% for data in groupes %}
+    <div class="group-card">
+        <h2>{{ data.groupe.nom }} ({{ data.groupe.get_genre_display }})</h2>
+        <p class="capacity-info">
+            Capacité : <strong>{{ data.taille_actuelle }}/{{ data.taille_max }}</strong> — 
+            <em>{{ data.pourcentage_rempli|floatformat:1 }}% rempli</em>
+        </p>
+
+        <details>
+            <summary>Afficher les étudiants</summary>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom & Prénom</th>
+                        <th>Université</th>
+                        <th>Cohorte</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for etudiant in data.etudiants %}
+                    <tr>
+                        <td>{{ etudiant.nom }} {{ etudiant.prenom }}</td>
+                        <td>{{ etudiant.universite }}</td>
+                        <td>{{ etudiant.get_cohorte_display }}</td>
+                        <td>
+                            <a href="{% url 'supprimer_etudiant' etudiant.id %}" 
+                               class="btn-delete"
+                               onclick="return confirm('Supprimer cet étudiant ?');">
+                               Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" style="text-align:center; color:#888; font-style:italic;">
+                            Aucun étudiant dans ce groupe.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </details>
+
+        <div>
+            <a href="{% url 'exporter_csv' %}" class="btn-export">Exporter CSV</a>
+            <a href="{% url 'exporter_pdf' %}" class="btn-pdf">Exporter PDF</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

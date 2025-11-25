@@ -1,0 +1,110 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Inscription Étudiant{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #000;
+    }
+
+    .top-bar {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .top-bar a {
+        background: #007bff;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+    .top-bar a:hover {
+        background: #0056b3;
+    }
+
+    .form-box {
+        background: #f0f0f0;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 26px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    button.submit-btn {
+        width: 100%;
+        padding: 12px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    button.submit-btn:hover {
+        background: #0056b3;
+    }
+</style>
+
+<div class="top-bar">
+    <a href="{% url 'admin_groupes' %}">Voir les groupes</a>
+</div>
+
+<div class="form-box">
+    <h1>Inscription Étudiant</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="{{ form.nom.id_for_label }}">Nom</label>
+        {{ form.nom }}
+
+        <label for="{{ form.prenom.id_for_label }}">Prénom</label>
+        {{ form.prenom }}
+
+        <label for="{{ form.genre.id_for_label }}">Genre</label>
+        {{ form.genre }}
+
+        <label for="{{ form.universite.id_for_label }}">Université</label>
+        {{ form.universite }}
+
+        <label for="{{ form.cohorte.id_for_label }}">Cohorte</label>
+        {{ form.cohorte }}
+
+        <button type="submit" class="submit-btn">S'inscrire et être classé</button>
+    </form>
+</div>
+
+{% endblock %}
