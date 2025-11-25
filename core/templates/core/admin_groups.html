@@ -153,13 +153,13 @@
                 </tbody>
             </table>
         </details>
-
-        <div>
+    </div>
+    {% endfor %}
+            <div>
             <a href="{% url 'exporter_csv' %}" class="btn-export">Exporter CSV</a>
             <a href="{% url 'exporter_pdf' %}" class="btn-pdf">Exporter PDF</a>
         </div>
-    </div>
-    {% endfor %}
 </div>
 
 {% endblock %}
+
