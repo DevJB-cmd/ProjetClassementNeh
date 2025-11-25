@@ -94,7 +94,7 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ etudiant.nom }} {{ etudiant.prenom }}</td>
                         <td>{{ etudiant.universite }}</td>
-                        <td>{{ etudiant.get_annee_etudes_display }}</td>
+                        <td>{{ etudiant.get_cohorte_display }}</td>
                     </tr>
                 {% empty %}
                     <tr>
@@ -108,3 +108,4 @@
 </div>
 
 {% endblock %}
+
