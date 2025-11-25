@@ -86,6 +86,7 @@
                     <th>Nom & Prénom</th>
                     <th>Université</th>
                     <th>Cohorte</th>
+                    <th>Appel</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,11 +95,12 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ etudiant.nom }} {{ etudiant.prenom }}</td>
                         <td>{{ etudiant.universite }}</td>
-                        <td>{{ etudiant.get_cohorte_display }}</td>
+                        <td>{{ etudiant.cohorte }}</td>
+                        <td></td>  {# Cellule vide pour l'appel #}
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="4" class="empty-row">Aucun étudiant dans ce groupe.</td>
+                        <td colspan="5" class="empty-row">Aucun étudiant dans ce groupe.</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -108,4 +110,3 @@
 </div>
 
 {% endblock %}
-
